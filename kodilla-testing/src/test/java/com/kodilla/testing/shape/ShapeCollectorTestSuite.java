@@ -44,6 +44,7 @@ public class ShapeCollectorTestSuite {
             //Given
             ShapeCollector shapeCollector = new ShapeCollector();
             Shape theShape = new Triangle("Triangle 1", 100);
+            shapeCollector.addFigure(theShape);
 
             //When
             Shape retrivedShape;
