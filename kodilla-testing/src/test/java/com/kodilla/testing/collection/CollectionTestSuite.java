@@ -24,6 +24,7 @@ public class CollectionTestSuite {
         OddNumbersExterminator oddNumbersExterminator = new OddNumbersExterminator();
         Assertions.assertTrue(oddNumbersExterminator.exterminate(List.of()).isEmpty());
     }
+
     @DisplayName ("Normal list - odd numbers exterminator")
     @Test
     void testOddNumbersExterminatorNormalList() {

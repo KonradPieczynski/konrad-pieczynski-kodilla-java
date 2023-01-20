@@ -13,7 +13,7 @@ public class ShapeCollector {
         return null;
     }
 
-    int showFigures() {
-        return -1;
+    String showFigures() {
+        return null;
     }
 }
