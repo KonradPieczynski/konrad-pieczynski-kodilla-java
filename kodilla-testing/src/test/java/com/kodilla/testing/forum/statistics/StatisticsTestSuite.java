@@ -114,7 +114,7 @@ public class StatisticsTestSuite {
         ForumStatistics forumStatistics = new ForumStatistics();
         when(statisticsMock.usersNames()).thenReturn(generateListOfUsers(100));
         when(statisticsMock.postsCount()).thenReturn(1000);
-        when(statisticsMock.commentsCount()).thenReturn(10);
+        when(statisticsMock.commentsCount()).thenReturn(10000);
 
         // When
         forumStatistics.calculateAdvStatistics(statisticsMock);

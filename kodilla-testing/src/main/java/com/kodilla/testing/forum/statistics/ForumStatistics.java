@@ -36,7 +36,13 @@ public class ForumStatistics {
         users = statistics.usersNames().size();
         posts = statistics.postsCount();
         comments = statistics.commentsCount();
+        if (users > 0){
+        averagePostsUser = (double)posts/users;
+        averageCommentsUser = (double)comments/users;
+        }
+        if (comments > 0) averageCommentsPost = (double) comments / posts;
     }
+
     void showStatistics() {
         System.out.println("Users: "+users);
         System.out.println("Posts: "+posts);
