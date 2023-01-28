@@ -10,6 +10,7 @@ public class RpsRunner {
 
         while (!end) {
             gameLogic.NextMove();
+            gameLogic.checkFinalWin();
             end = gameLogic.isEnd();
         }
     }

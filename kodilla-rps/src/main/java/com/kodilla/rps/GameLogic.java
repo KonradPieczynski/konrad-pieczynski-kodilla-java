@@ -26,7 +26,7 @@ public class GameLogic {
         }
         while(rounds == 0)
         {
-            System.out.println("Please enter number of rounds to play: ");
+            System.out.println("Please enter number of rounds in order to win: ");
             try {
                 rounds = scanner.nextInt();
             }
@@ -56,10 +56,10 @@ public class GameLogic {
                 if (MoveList.values()[Integer.parseInt(input)-1].getValue().equals(aiMove)) {
                     System.out.println("Tie!");
                 } else if (checkPlayerWin(MoveList.values()[Integer.parseInt(input)-1].getValue(), aiMove)) {
-                    System.out.println("You win!");
+                    System.out.println("You win round!");
                     wins++;
                 } else {
-                    System.out.println("You lose!");
+                    System.out.println("You lose round!");
                     losses++;
                 }
             }
@@ -73,18 +73,19 @@ public class GameLogic {
         return MoveList.values()[nextRandom].getValue();
     }
     void nextRound(){
-        currentRound++;
-        if (currentRound > rounds)
-        {
-            System.out.println("Game ended after: " + rounds);
-            System.out.println("Your wins: " + wins);
-            System.out.println("Your loses: " + losses);
+    currentRound++;
+        System.out.println("Current round: " + currentRound);
+        System.out.println("Your wins: " + wins +"/"+rounds);
+        System.out.println("Your loses: " + losses+"/"+rounds);
+    }
+    void checkFinalWin(){
+        if (wins >= rounds) {
+            System.out.println("You won game vs Ai! Game took " + currentRound +" rounds");
             NewGame();
         }
-        else {
-            System.out.println("Round: " + currentRound);
-            System.out.println("Your wins: " + wins);
-            System.out.println("Your loses: " + losses);
+        if (losses >= rounds) {
+            System.out.println("You lose game vs Ai! Game took " + currentRound +" rounds");
+            NewGame();
         }
     }
 
