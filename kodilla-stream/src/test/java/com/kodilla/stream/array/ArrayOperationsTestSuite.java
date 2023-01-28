@@ -9,7 +9,7 @@ public class ArrayOperationsTestSuite {
     void testGetAverage()
     {
         //Given
-        int[] numbers = {1,2,3,4,5,6,7,8,9,10};
+        int[] numbers = {10,5,2,4,3,1,6,8,7,9};
 
         //When
         double average = ArrayOperations.getAverage(numbers);
