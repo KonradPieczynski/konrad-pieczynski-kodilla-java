@@ -1,8 +1,6 @@
 <h1>Kodilla bootcamp Java developer plus</h1>
-<hr>  
   
 <h2>Highlights</h2>
-<hr>
 
 Project with required scanner class - Rock, paper, scissors, lizard, spock game
 
