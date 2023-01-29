@@ -1,15 +1,18 @@
 package com.kodilla.rps;
 
 import java.util.InputMismatchException;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 
 public class GameLogic {
-    int wins;
-    int losses;
-    int rounds;
-    int currentRound;
-    boolean end;
+    int wins = 0;
+    int losses = 0;
+    int rounds = 0;
+    int currentRound = 0;
+    boolean end = false;
+    boolean cheatOn = false;
+    boolean extendedRules = false;
     String playerName = "";
     Scanner scanner = new Scanner(System.in);
     void NewGame(){
@@ -39,7 +42,12 @@ public class GameLogic {
     void NextMove() {
         System.out.println();
         nextRound();
-        System.out.print(playerName + ",enter your move (1)rock (2)paper (3)scissors (n)new game (x)exit: ");
+        if (cheatOn) System.out.println("Cheat is on");
+        System.out.println(playerName + ",enter your move");
+        System.out.println("(1)rock (2)paper (3)scissors");
+        if (extendedRules) System.out.println("(4)lizard (5)spock");
+        System.out.println("(r)rules (c)cheat toggle (h)help on extended rules");
+        System.out.print("(n)new game (x)exit: ");
         String input = scanner.nextLine();
 
         switch (input) {
@@ -51,11 +59,27 @@ public class GameLogic {
                 System.out.println("Are you sure to start new game? (y/n): ");
                 if ("y".equals(scanner.nextLine())) NewGame();
             }
-            case "1", "2", "3" -> {
-                String aiMove = getAiMove();
-                if (MoveList.values()[Integer.parseInt(input)-1].getValue().equals(aiMove)) {
+            case "c" -> {
+                toggleCheat();
+                System.out.println(cheatOn ? "Cheat turned on" : "Cheat turned off");
+            }
+            case "r" -> toggleRules();
+            case "h" -> System.out.println("""
+                    rock > scissors, lizard
+                    scissors > paper, lizard
+                    paper > rock, spock
+                    lizard > paper, spock
+                    spock > rock, scissors""");
+            case "1", "2", "3", "4", "5" -> {
+                String playerMove = MoveList.values()[Integer.parseInt(input)-1].getValue();
+                String aiMove = getAiMove(playerMove);
+                if (!extendedRules && (input.equals("4") || input.equals("5")))
+                {
+                    System.out.println("Invalid input!");
+                }
+                else if (Objects.equals(playerMove, aiMove)) {
                     System.out.println("Tie!");
-                } else if (checkPlayerWin(MoveList.values()[Integer.parseInt(input)-1].getValue(), aiMove)) {
+                } else if (checkPlayerWin(playerMove, aiMove)) {
                     System.out.println("You win round!");
                     wins++;
                 } else {
@@ -66,11 +90,36 @@ public class GameLogic {
             default -> System.out.println("Invalid input!");
         }
     }
-    String getAiMove() {
+    String getAiMove(String playerMove) {
+        int nextRandom;
         Random random = new Random();
-        var nextRandom = random.nextInt(3);
-        System.out.println("Ai move: " + MoveList.values()[nextRandom].getValue());
-        return MoveList.values()[nextRandom].getValue();
+        String aiMove ="";
+        if (!cheatOn) {
+            nextRandom = !extendedRules ? random.nextInt(3) : random.nextInt(5);
+            aiMove = MoveList.values()[nextRandom].getValue();
+        }
+        else {
+            nextRandom = random.nextInt(4);
+            switch (nextRandom){
+                case 0 -> aiMove = playerMove;
+                case 1 -> {
+                    if (playerMove.equals(MoveList.ROCK.getValue())) aiMove= MoveList.PAPER.getValue();
+                    if (playerMove.equals(MoveList.PAPER.getValue())) aiMove= MoveList.SCISSORS.getValue();
+                    if (playerMove.equals(MoveList.SCISSORS.getValue())) aiMove= MoveList.ROCK.getValue();
+                    if (playerMove.equals(MoveList.LIZARD.getValue())) aiMove= MoveList.ROCK.getValue();
+                    if (playerMove.equals(MoveList.SPOCK.getValue())) aiMove= MoveList.LIZARD.getValue();
+                }
+                case 2,3 -> {
+                    if (playerMove.equals(MoveList.ROCK.getValue())) aiMove= MoveList.SCISSORS.getValue();
+                    if (playerMove.equals(MoveList.PAPER.getValue())) aiMove= MoveList.ROCK.getValue();
+                    if (playerMove.equals(MoveList.SCISSORS.getValue())) aiMove= MoveList.PAPER.getValue();
+                    if (playerMove.equals(MoveList.LIZARD.getValue())) aiMove= MoveList.SPOCK.getValue();
+                    if (playerMove.equals(MoveList.SPOCK.getValue())) aiMove= MoveList.ROCK.getValue();
+                }
+            }
+        }
+        System.out.println("Ai move: " + aiMove);
+        return aiMove;
     }
     void nextRound(){
     currentRound++;
@@ -90,9 +139,19 @@ public class GameLogic {
     }
 
     boolean checkPlayerWin(String playerMove, String aiMove) {
-        return playerMove.equals(MoveList.ROCK.getValue()) && aiMove.equals(MoveList.SCISSORS.getValue())
-                || (playerMove.equals(MoveList.PAPER.getValue()) && aiMove.equals(MoveList.ROCK.getValue()))
-                || (playerMove.equals(MoveList.SCISSORS.getValue()) && aiMove.equals(MoveList.PAPER.getValue()));
+        return (playerMove.equals(MoveList.ROCK.getValue()) && (aiMove.equals(MoveList.SCISSORS.getValue()) || aiMove.equals(MoveList.LIZARD.getValue())))
+                || (playerMove.equals(MoveList.PAPER.getValue()) && (aiMove.equals(MoveList.ROCK.getValue()) || aiMove.equals(MoveList.SPOCK.getValue())))
+                || (playerMove.equals(MoveList.SCISSORS.getValue()) && (aiMove.equals(MoveList.PAPER.getValue()) || aiMove.equals(MoveList.LIZARD.getValue())))
+                || (playerMove.equals(MoveList.LIZARD.getValue()) && (aiMove.equals(MoveList.PAPER.getValue()) || aiMove.equals(MoveList.SPOCK.getValue())))
+                || (playerMove.equals(MoveList.SPOCK.getValue()) && (aiMove.equals(MoveList.ROCK.getValue()) || aiMove.equals(MoveList.SCISSORS.getValue())));
+    }
+    void toggleCheat()
+    {
+        cheatOn = !cheatOn;
+    }
+    void toggleRules()
+    {
+        extendedRules = !extendedRules;
     }
     public boolean isEnd() {
         return end;
