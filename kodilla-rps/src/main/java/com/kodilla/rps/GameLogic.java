@@ -18,7 +18,7 @@ public class GameLogic {
     void NewGame(){
         wins = 0;
         losses = 0;
-        currentRound = 0;
+        currentRound = 1;
         rounds = 0;
         playerName = "";
         System.out.println("Starting new game.");
@@ -41,12 +41,11 @@ public class GameLogic {
     }
     void NextMove() {
         System.out.println();
-        nextRound();
         if (cheatOn) System.out.println("Cheat is on");
         System.out.println(playerName + ",enter your move");
         System.out.println("(1)rock (2)paper (3)scissors");
         if (extendedRules) System.out.println("(4)lizard (5)spock");
-        System.out.println("(r)rules (c)cheat toggle (h)help on extended rules");
+        System.out.println("(r)change rules (c)cheat toggle (h)help on extended rules");
         System.out.print("(n)new game (x)exit: ");
         String input = scanner.nextLine();
 
@@ -86,6 +85,7 @@ public class GameLogic {
                     System.out.println("You lose round!");
                     losses++;
                 }
+                nextRound();
             }
             default -> System.out.println("Invalid input!");
         }
