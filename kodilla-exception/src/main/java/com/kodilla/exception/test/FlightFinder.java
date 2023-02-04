@@ -16,6 +16,6 @@ public class FlightFinder {
         if (!airports.get(flight.getDepartureAirport())) System.out.println("Cannot depart from:" + flight.getDepartureAirport());
         if (!airports.get(flight.getArrivalAirport())) System.out.println("Cannot fly to:" + flight.getArrivalAirport());
         if (airports.get(flight.getArrivalAirport()) && airports.get(flight.getDepartureAirport()))
-            System.out.println("You can fly to: " + flight.getDepartureAirport() + " from " + flight.getArrivalAirport());
+            System.out.println("You can fly to: " + flight.getArrivalAirport() + " from " + flight.getDepartureAirport());
     }
 }
