@@ -1,13 +1,12 @@
 package com.kodilla.good.patterns.challenges.FlyFinder;
 
-import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class FlyFinderProcessor {
     FlyList flyList = new FlyList();
-    ArrayList<String> route = new ArrayList<>();
+
     public void findFlight(String source, String destination){
         Set<String> sources = flyList.getFlights().stream()
                 .map(Flight::getSource)
