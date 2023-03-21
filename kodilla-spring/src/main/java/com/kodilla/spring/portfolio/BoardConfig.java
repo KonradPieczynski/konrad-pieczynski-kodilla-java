@@ -1,2 +1,4 @@
-package com.kodilla.spring.portfolio;public class BoardConfig {
+package com.kodilla.spring.portfolio;
+
+public class BoardConfig {
 }
