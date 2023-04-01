@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.kodilla.sudoku.SudokuRunner.BOARD_SIZE;
+import static com.kodilla.sudoku.SudokuRunner.EMPTY;
 
 public class SudokuBoard {
     List<SudokuRow> sudokuBoard = new ArrayList<>(BOARD_SIZE);
@@ -33,7 +34,7 @@ public class SudokuBoard {
                 if (column % 3 == 0 && column != 0) {
                     boardToDisplay.append("|");
                 }
-                if (sudokuBoard.get(column).getSudokuRow().get(row).getValue() == -1)
+                if (sudokuBoard.get(column).getSudokuRow().get(row).getValue() == EMPTY)
                 {
                     boardToDisplay.append(BLANK_SPACE);
                 }

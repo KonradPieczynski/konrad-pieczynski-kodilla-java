@@ -1,9 +1,50 @@
 package com.kodilla.sudoku;
 
+import java.util.Arrays;
+
 import static com.kodilla.sudoku.SudokuRunner.BOARD_SIZE;
+import static com.kodilla.sudoku.SudokuRunner.EMPTY;
+
 public class SudokuGame {
 
+    SudokuBoard sudokuBoard;
+
+    public SudokuGame() {
+        this.sudokuBoard = new SudokuBoard();
+    }
+
     boolean resolveSudoku(){
+        System.out.println(sudokuBoard);
+        System.out.println("Input 3 numbers (x,y,value) to input into table; Q/Quit/E/Exit for exit; S/Solve/Sudoku to solve");
+        TerminalInput terminalInput = new TerminalInput();
+        String scannedLine = terminalInput.scanInput().toLowerCase();
+        if (scannedLine.contains("q") || scannedLine.contains("e")) return true;
+        if (scannedLine.contains("s")) {
+            boolean solvable = solveBoard(sudokuBoard);
+            if (!solvable) {
+                System.out.println("Cannot solve this board configuration");
+            }
+            else {
+                System.out.println("Solved board:");
+                System.out.println(sudokuBoard);
+                System.out.println("New input board:");
+                sudokuBoard = new SudokuBoard();
+            }
+            return false;
+        }
+        String[] scannedNumbers = scannedLine.split(",");
+
+        if (Arrays.stream(scannedNumbers).count() == 3){
+            int column = Integer.parseInt(scannedNumbers[0]);
+            int row = Integer.parseInt(scannedNumbers[1]);
+            int number = Integer.parseInt(scannedNumbers[2]);
+            if (number<(BOARD_SIZE) && number > 0
+            && row<(BOARD_SIZE+1) && row > 0
+            && column<(BOARD_SIZE+1) && column > 0)
+            {
+                sudokuBoard.getSudokuBoard().get(column - 1).getSudokuRow().get(row - 1).setValue(number);
+            }
+        }
         return false;
     }
 
@@ -44,7 +85,7 @@ public class SudokuGame {
     public boolean solveBoard(SudokuBoard board) {
         for (int row = 0; row < BOARD_SIZE; row++) {
             for (int column = 0; column < BOARD_SIZE; column++) {
-                if (board.getSudokuBoard().get(column).getSudokuRow().get(row).getValue() == -1) {
+                if (board.getSudokuBoard().get(column).getSudokuRow().get(row).getValue() == EMPTY) {
                     for (int numberToTry = 1; numberToTry <= BOARD_SIZE; numberToTry++) {
                         if (isValid(board, numberToTry, row, column)) {
                             board.getSudokuBoard().get(column).getSudokuRow().get(row).setValue(numberToTry);
@@ -52,7 +93,7 @@ public class SudokuGame {
                                 return true;
                             }
                             else {
-                                board.getSudokuBoard().get(column).getSudokuRow().get(row).setValue(-1);
+                                board.getSudokuBoard().get(column).getSudokuRow().get(row).setValue(EMPTY);
                             }
                         }
                     }
