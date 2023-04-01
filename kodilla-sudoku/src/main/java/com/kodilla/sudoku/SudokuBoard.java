@@ -20,6 +20,7 @@ public class SudokuBoard {
 
     @Override
     public String toString() {
+        final String BLANK_SPACE = " ";
         StringBuilder boardToDisplay = new StringBuilder();
         for (int row = 0; row < BOARD_SIZE; row++) {
             if (row % 3 == 0 && row != 0) {
@@ -32,7 +33,13 @@ public class SudokuBoard {
                 if (column % 3 == 0 && column != 0) {
                     boardToDisplay.append("|");
                 }
-                boardToDisplay.append(sudokuBoard.get(column).getSudokuRow().get(row).getValue());
+                if (sudokuBoard.get(column).getSudokuRow().get(row).getValue() == -1)
+                {
+                    boardToDisplay.append(BLANK_SPACE);
+                }
+                else{
+                    boardToDisplay.append(sudokuBoard.get(column).getSudokuRow().get(row).getValue());
+                }
             }
             boardToDisplay.append("\n");
         }
