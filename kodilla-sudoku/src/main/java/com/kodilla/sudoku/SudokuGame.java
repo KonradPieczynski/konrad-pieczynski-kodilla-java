@@ -35,15 +35,31 @@ public class SudokuGame {
         String[] scannedNumbers = scannedLine.split(",");
 
         if (Arrays.stream(scannedNumbers).count() == 3){
-            int column = Integer.parseInt(scannedNumbers[0]);
-            int row = Integer.parseInt(scannedNumbers[1]);
-            int number = Integer.parseInt(scannedNumbers[2]);
-            if (number<(BOARD_SIZE) && number > 0
+            int column = EMPTY;
+            int row = EMPTY;
+            int number = EMPTY;
+            try {
+                column = Integer.parseInt(scannedNumbers[0]);
+                row = Integer.parseInt(scannedNumbers[1]);
+                number = Integer.parseInt(scannedNumbers[2]);
+            }
+            catch (NumberFormatException e)
+            {
+                System.out.println("Invalid input");
+            }
+
+            if (number<(BOARD_SIZE+1) && number > 0
             && row<(BOARD_SIZE+1) && row > 0
             && column<(BOARD_SIZE+1) && column > 0)
             {
                 sudokuBoard.getSudokuBoard().get(column - 1).getSudokuRow().get(row - 1).setValue(number);
             }
+            else {
+                System.out.println("Invalid input");
+            }
+        }
+        else {
+            System.out.println("Invalid input");
         }
         return false;
     }
