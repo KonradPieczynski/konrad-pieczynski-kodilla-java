@@ -5,7 +5,17 @@ import jakarta.validation.constraints.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@NamedQueries({
+        @NamedQuery(
+                name = "Company.retrieveCompanyWhereNameStartsWith",
+                query = "from Company where name like :COMPANYNAME__%"
+        )
+})
+@NamedNativeQuery(
+        name = "Company.retrieveCompanyWhereNameStartsWith2",
+        query = "SELECT * from companies where company_name like CONCAT(:COMPANYNAME2,'__%');",
+        resultClass = Company.class
+)
 @Entity
 @Table(name = "COMPANIES")
 public class Company {
