@@ -37,12 +37,16 @@ public class InvoiceDaoTestSuite {
         item2.setProduct(product2);
         item3.setProduct(product3);
         item4.setProduct(product4);
+        item1.setInvoice(invoice1);
+        item2.setInvoice(invoice1);
+        item3.setInvoice(invoice1);
+        item4.setInvoice(invoice2);
         invoice1.getItems().add(item1);
         invoice1.getItems().add(item2);
         invoice1.getItems().add(item3);
         invoice2.getItems().add(item4);
         //When
-        productDao.saveAll(Arrays.asList(product1,product2,product3,product4));
+//        productDao.saveAll(Arrays.asList(product1,product2,product3,product4));
         invoiceDao.saveAll(Arrays.asList(invoice1,invoice2));
         int id1 = invoice1.getId();
         int id2 = invoice2.getId();
@@ -50,9 +54,12 @@ public class InvoiceDaoTestSuite {
         assertNotEquals(0, id1);
         assertNotEquals(0, id2);
         //CleanUp
-        //invoiceDao.deleteAll();
-        //productDao.deleteAll();
-        //itemDao.deleteAll();
+//        itemDao.deleteAll();
+//        productDao.deleteAll();
+//        invoiceDao.deleteAll();
+        invoiceDao.deleteById(id1);
+        invoiceDao.deleteById(id2);
+
     }
     @Test
     void findProducts(){

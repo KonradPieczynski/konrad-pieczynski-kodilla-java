@@ -32,7 +32,7 @@ import java.math.BigDecimal;
     public void setId(int id) {
         this.id = id;
     }
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "PRODUCTS_ID", nullable = false)
     @NotNull
     public Product getProduct() {
@@ -69,7 +69,7 @@ import java.math.BigDecimal;
     public void setValue(BigDecimal value) {
         this.value = value;
     }
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "INVOICES_ID", nullable = false)
     @NotNull
     public Invoice getInvoice() {
