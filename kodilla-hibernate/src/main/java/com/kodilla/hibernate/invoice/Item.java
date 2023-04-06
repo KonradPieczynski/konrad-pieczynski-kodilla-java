@@ -32,8 +32,9 @@ import java.math.BigDecimal;
     public void setId(int id) {
         this.id = id;
     }
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name ="ITEMS_PRODUCTS_ID")
+    @ManyToOne
+    @JoinColumn(name = "PRODUCTS_ID", nullable = false)
+    @NotNull
     public Product getProduct() {
         return product;
     }
@@ -69,7 +70,8 @@ import java.math.BigDecimal;
         this.value = value;
     }
     @ManyToOne
-    @JoinColumn(name = "INVOICES_ID")
+    @JoinColumn(name = "INVOICES_ID", nullable = false)
+    @NotNull
     public Invoice getInvoice() {
         return invoice;
     }
