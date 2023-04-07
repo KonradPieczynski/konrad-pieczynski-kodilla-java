@@ -8,12 +8,12 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(
                 name = "Company.retrieveCompanyWhereNameStartsWith",
-                query = "from Company where name like :COMPANYNAME__%"
+                query = "from Company where name like CONCAT(:COMPANYNAME,'__%')"
         )
 })
 @NamedNativeQuery(
-        name = "Company.retrieveCompanyWhereNameStartsWith2",
-        query = "SELECT * from companies where company_name like CONCAT(:COMPANYNAME2,'__%');",
+        name = "Company.retrieveCompanyWhereNameStartsWithNative",
+        query = "SELECT * from companies where company_name like CONCAT(:COMPANYNAME,'__%');",
         resultClass = Company.class
 )
 @Entity
