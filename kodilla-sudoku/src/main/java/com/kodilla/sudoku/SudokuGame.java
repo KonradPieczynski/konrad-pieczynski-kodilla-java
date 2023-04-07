@@ -50,10 +50,14 @@ public class SudokuGame {
 
             if (number<(BOARD_SIZE+1) && number > 0
             && row<(BOARD_SIZE+1) && row > 0
-            && column<(BOARD_SIZE+1) && column > 0
-            && isValid(sudokuBoard,number,row,column))
+            && column<(BOARD_SIZE+1) && column > 0)
             {
-                sudokuBoard.getSudokuBoard().get(column - 1).getSudokuRow().get(row - 1).setValue(number);
+                if (isValid(sudokuBoard,number,row,column)) {
+                    sudokuBoard.getSudokuBoard().get(column - 1).getSudokuRow().get(row - 1).setValue(number);
+                }
+                else {
+                    System.out.println("Invalid input");
+                }
             }
             else {
                 System.out.println("Invalid input");
