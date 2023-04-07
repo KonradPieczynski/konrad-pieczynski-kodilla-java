@@ -56,11 +56,11 @@ public class SudokuGame {
                     sudokuBoard.getSudokuBoard().get(column - 1).getSudokuRow().get(row - 1).setValue(number);
                 }
                 else {
-                    System.out.println("Invalid input");
+                    System.out.println("This number cannot be placed there");
                 }
             }
             else {
-                System.out.println("Invalid input");
+                System.out.println("Invalid number/coordinates");
             }
         }
         else {
