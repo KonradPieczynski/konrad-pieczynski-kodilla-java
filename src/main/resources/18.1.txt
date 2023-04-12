@@ -1,0 +1,18 @@
+{
+    "Car name":"Maluch",
+    "Car brand":"Fiat",
+    "Seats":
+        [{"Seat number":1,
+          "Material": "Leather",
+          "Color": "Red"},
+          {"Seat number":2,
+          "Material": "Leather",
+          "Color": "Red"},
+          {"Seat number":3,
+          "Material": "Leather",
+          "Color": "Red"},
+          {"Seat number":4,
+          "Material": "Leather",
+          "Color": "Red"}],
+    "Engine capacity":"999m3"
+}
