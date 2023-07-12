@@ -67,8 +67,8 @@ public class CrudAppTestSuite {
                                 .getText().equals(taskName))
                 .forEach(theForm -> {
                     WebElement buttonDeleteTask =
-                            //theForm.findElement(By.xpath(".//button[contains(@data-task-delete-button,\"\")]"));
-                            theForm.findElement(By.xpath(".//button[text()=\"Delete\"]"));
+                            theForm.findElement(By.xpath(".//button[@data-task-delete-button]"));
+//                            theForm.findElement(By.xpath(".//button[text()=\"Delete\"]"));
                     buttonDeleteTask.click();
                 });
         Thread.sleep(5000);
