@@ -24,9 +24,7 @@ public class EBayTestingApp {
 
         WebDriverWait w = new WebDriverWait(driver, 10);
         w.until(ExpectedConditions.visibilityOfElementLocated(By.id(GDPRBANNER)));
-        synchronized (driver) {
-            driver.wait(1000);
-        }
+        Thread.sleep(2000);
         driver.findElement(By.id(GDPRBANNER)).click();
         WebElement searchField = driver.findElement(By.id(SEARCHFIELD));
         searchField.sendKeys(SEARCHKEYWORD);
