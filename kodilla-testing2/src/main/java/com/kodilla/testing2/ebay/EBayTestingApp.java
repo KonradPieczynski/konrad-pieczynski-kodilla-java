@@ -11,20 +11,25 @@ import java.util.concurrent.TimeUnit;
 
 public class EBayTestingApp {
     public static final String SEARCHFIELD = "gh-ac";
+    public static final String GDPRBANNER = "gdpr-banner-accept";
+
+    public static final String WWW = "https://www.ebay.com";
+
+    public static final String SEARCHKEYWORD = "laptop";
 
     public static void main(String[] args) throws InterruptedException {
         WebDriver driver = WebDriverConfig.getDriver(WebDriverConfig.FIREFOX);
         driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-        driver.get("https://www.ebay.com");
+        driver.get(WWW);
 
         WebDriverWait w = new WebDriverWait(driver, 10);
-        w.until(ExpectedConditions.visibilityOfElementLocated(By.id("gdpr-banner-accept")));
+        w.until(ExpectedConditions.visibilityOfElementLocated(By.id(GDPRBANNER)));
         synchronized (driver) {
             driver.wait(1000);
         }
-        driver.findElement(By.id("gdpr-banner-accept")).click();
+        driver.findElement(By.id(GDPRBANNER)).click();
         WebElement searchField = driver.findElement(By.id(SEARCHFIELD));
-        searchField.sendKeys("laptop");
+        searchField.sendKeys(SEARCHKEYWORD);
         searchField.submit();
     }
 }
